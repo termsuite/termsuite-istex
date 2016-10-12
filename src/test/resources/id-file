@@ -1,0 +1,7 @@
+# One line per id
+# should support empty lines
+
+F697EDBD85006E482CD1AC91DE9D40F6C629727A
+
+15101397F055B3A872D495F7405D0A3F3E195E0F # should support comments at the end of a line
+
