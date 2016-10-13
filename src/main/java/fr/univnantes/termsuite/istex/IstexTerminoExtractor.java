@@ -8,11 +8,14 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
+import org.apache.commons.lang.time.StopWatch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.base.Stopwatch;
 import com.google.common.collect.Lists;
 
 import eu.project.ttc.api.Document;
@@ -37,35 +40,52 @@ public class IstexTerminoExtractor {
 	}
 
 	public TermIndex execute() {
-		return extractor.execute();
+		LOGGER.info("Executing the pipeline.");
+		Stopwatch sw = Stopwatch.createStarted();
+		TermIndex termIndex = extractor.execute();
+		sw.stop();
+		LOGGER.info("Extracted TermIndex {} on {} tokens from {} documents.", 
+				termIndex.getName(),
+				termIndex.getWordAnnotationsNum(),
+				termIndex.getDocuments().size()
+				);
+		LOGGER.info("The execution of pipeline has finished in {}.", sw.toString());
+		return termIndex;
 	}
 
-	public TerminoExtractor setTreeTaggerHome(String treeTaggerHome) {
-		return extractor.setTreeTaggerHome(treeTaggerHome);
+	public IstexTerminoExtractor setTreeTaggerHome(String treeTaggerHome) {
+		extractor.setTreeTaggerHome(treeTaggerHome);
+		return this;
 	}
 
-	public TerminoExtractor usingCustomResources(String resourceDir) {
-		return extractor.usingCustomResources(resourceDir);
+	public IstexTerminoExtractor usingCustomResources(String resourceDir) {
+		extractor.usingCustomResources(resourceDir);
+		return this;
 	}
 
-	public TerminoExtractor useContextualizer(int scope, ContextualizerMode contextualizerMode) {
-		return extractor.useContextualizer(scope, contextualizerMode);
+	public IstexTerminoExtractor useContextualizer(int scope, ContextualizerMode contextualizerMode) {
+		extractor.useContextualizer(scope, contextualizerMode);
+		return this;
 	}
 
-	public TerminoExtractor preFilter(TerminoFilterConfig filterConfig) {
-		return extractor.preFilter(filterConfig);
+	public IstexTerminoExtractor preFilter(TerminoFilterConfig filterConfig) {
+		extractor.preFilter(filterConfig);
+		return this;
 	}
 
-	public TerminoExtractor dynamicMaxSizeFilter(int maxTermIndexSize) {
-		return extractor.dynamicMaxSizeFilter(maxTermIndexSize);
+	public IstexTerminoExtractor dynamicMaxSizeFilter(int maxTermIndexSize) {
+		extractor.dynamicMaxSizeFilter(maxTermIndexSize);
+		return this;
 	}
 
-	public TerminoExtractor postFilter(TerminoFilterConfig filterConfig) {
-		return extractor.postFilter(filterConfig);
+	public IstexTerminoExtractor postFilter(TerminoFilterConfig filterConfig) {
+		extractor.postFilter(filterConfig);
+		return this;
 	}
 
-	public TerminoExtractor setWatcher(TermHistory history) {
-		return extractor.setWatcher(history);
+	public IstexTerminoExtractor setWatcher(TermHistory history) {
+		extractor.setWatcher(history);
+		return this;
 	}
 	
 	public static IstexTerminoExtractor fromIdFile(Lang lang, File idFile) {
