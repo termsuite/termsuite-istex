@@ -8,10 +8,8 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
-import org.apache.commons.lang.time.StopWatch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -119,7 +117,7 @@ public class IstexTerminoExtractor {
 				return new Document(lang, documentURL, text);
 			} catch (IOException e) {
 				LOGGER.error(String.format("Could not retrieve ISTEX document %s.", documentURL));
-				throw new DocumentMissingException(documentURL);
+				throw new DocumentMissingException(lang, documentURL);
 			}
 		}).filter(doc -> doc != null);
 		return new IstexTerminoExtractor(TerminoExtractor.fromDocumentStream(lang, documentStream, ids.length));
