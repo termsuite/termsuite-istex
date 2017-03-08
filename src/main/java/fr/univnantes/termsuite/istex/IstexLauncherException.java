@@ -1,6 +1,7 @@
 package fr.univnantes.termsuite.istex;
 
 public class IstexLauncherException extends RuntimeException {
+	private static final long serialVersionUID = 1L;
 
 	public IstexLauncherException() {
 		super();
@@ -15,8 +16,8 @@ public class IstexLauncherException extends RuntimeException {
 		super(message, cause);
 	}
 
-	public IstexLauncherException(String format, Object... args) {
-		super(String.format(format, args));
+	public IstexLauncherException(String message) {
+		super(message);
 	}
 
 	public IstexLauncherException(Throwable cause) {

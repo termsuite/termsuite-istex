@@ -1,0 +1,380 @@
+{
+  "corpusName": "elsevier",
+  "author": [
+    {
+      "name": "Ali Ihsan Karamavruc",
+      "affiliations": [
+        "Department of Mechanical Engineering, West Virginia University, Morgantown, WV 26506-6106, USA"
+      ]
+    },
+    {
+      "name": "Nigel N. Clark",
+      "affiliations": [
+        "Department of Mechanical Engineering, West Virginia University, Morgantown, WV 26506-6106, USA"
+      ]
+    },
+    {
+      "name": "J.S. Halow",
+      "affiliations": [
+        "US Department of Energy, Morgantown Energy Technology Center, PO Box 880, Morgantown, WV 26505, USA"
+      ]
+    }
+  ],
+  "subject": [
+    {
+      "lang": [
+        "eng"
+      ],
+      "value": "Mutual information theory"
+    },
+    {
+      "lang": [
+        "eng"
+      ],
+      "value": "Fluidized beds"
+    },
+    {
+      "lang": [
+        "eng"
+      ],
+      "value": "Differential pressure"
+    }
+  ],
+  "language": [
+    "eng"
+  ],
+  "originalGenre": [
+    "Full-length article"
+  ],
+  "abstract": "This paper reports on the application of mutual information theory to the analysis of transient differential pressure and temperature signals from a fluidized bed. The signals were recorded around a heat transfer tube which was placed horizontally into a bubbling fluidized bed. The heat transfer tube was instrumented with fast response surface thermocouples and differential pressure sensors. Mutual information theory was used to identify the periodicity and the predictability of the local instantaneous differential pressure and temperature signals. It was also used to interpret the bubble-particle packet dynamics around the instrumented heat transfer tube. As theoretical and limiting cases, purely periodic and random signals were observed. The conventional signal processing tools such as autocorrelation, cross-correlation and fast Fourier transformation (FFT) were used as preliminary tools to analyze data. The qualitative similarities between the mutual information function and the autocorrelation function are shown. The first minimum of the mutual information function is used to reconstruct the phase portrait from the one-dimensional time series. It is suggested that if the first minimum of the mutual information function exists, then using the time derivative of the measured one-dimensional signal with the least number of bins provides a better time delay τ than using the measured signal directly.",
+  "qualityIndicators": {
+    "score": 7.448,
+    "pdfVersion": "1.2",
+    "pdfPageSize": "612 x 814 pts",
+    "refBibsNative": true,
+    "keywordCount": 3,
+    "abstractCharCount": 1422,
+    "pdfWordCount": 7121,
+    "pdfCharCount": 40678,
+    "pdfPageCount": 11,
+    "abstractWordCount": 204
+  },
+  "title": "Application of mutual information theory to fluid bed temperature and differential pressure signal analysis",
+  "pii": [
+    "0032-5910(95)02986-C"
+  ],
+  "refBibs": [
+    {
+      "host": {
+        "volume": "29",
+        "pages": {
+          "last": "106",
+          "first": "101"
+        },
+        "author": [],
+        "title": "AIChE J."
+      }
+    },
+    {
+      "host": {
+        "volume": "3",
+        "pages": {
+          "last": "15",
+          "first": "9"
+        },
+        "author": [],
+        "title": "Flow Meas. Instrum."
+      }
+    },
+    {
+      "host": {
+        "volume": "79",
+        "pages": {
+          "last": "79",
+          "first": "69"
+        },
+        "author": [],
+        "title": "Powder Technol."
+      }
+    },
+    {
+      "host": {
+        "volume": "67",
+        "pages": {
+          "last": "199",
+          "first": "187"
+        },
+        "author": [],
+        "title": "Powder Technol."
+      }
+    },
+    {
+      "host": {
+        "author": [],
+        "title": "The Mathematical Theory of Communication"
+      }
+    },
+    {
+      "host": {
+        "volume": "33",
+        "pages": {
+          "last": "11 140",
+          "first": "11 134"
+        },
+        "author": [],
+        "title": "Phys. Rev. A."
+      }
+    },
+    {
+      "host": {
+        "author": [],
+        "title": "Chaos and Integrability in Nonlinear Dynamics"
+      }
+    },
+    {
+      "host": {
+        "author": [],
+        "title": "Deterministic Chaos; An Introduction"
+      }
+    },
+    {
+      "host": {
+        "volume": "2",
+        "pages": {
+          "first": "126"
+        },
+        "author": [],
+        "title": "Math. Intelligencer"
+      }
+    },
+    {
+      "host": {
+        "author": [],
+        "title": "Fractals Form Chance and Dimension"
+      }
+    },
+    {
+      "host": {
+        "volume": "16",
+        "pages": {
+          "last": "317",
+          "first": "285"
+        },
+        "author": [],
+        "title": "Physica D"
+      }
+    },
+    {
+      "host": {
+        "volume": "98",
+        "pages": {
+          "first": "527"
+        },
+        "author": [],
+        "title": "Dokl. Akad. Nauk USSR"
+      }
+    },
+    {
+      "host": {
+        "volume": "49",
+        "pages": {
+          "last": "716",
+          "first": "712"
+        },
+        "author": [],
+        "title": "Phys. Rev. Lett."
+      }
+    },
+    {
+      "host": {
+        "pages": {
+          "last": "122",
+          "first": "103"
+        },
+        "author": [],
+        "title": "AIChE Symp. Ser."
+      }
+    },
+    {
+      "host": {
+        "pages": {
+          "last": "140",
+          "first": "126"
+        },
+        "author": [],
+        "title": "ASME Proc. 12th Int. Conf. Fluidization Bed Combustion, San Diego, CA, USA"
+      }
+    },
+    {
+      "host": {
+        "pages": {
+          "last": "166",
+          "first": "155"
+        },
+        "author": [],
+        "title": "ASME Proc. 12th Int. Conf. Fluidization Bed Combustion, San Diego, CA, USA"
+      }
+    },
+    {
+      "host": {
+        "author": []
+      }
+    },
+    {
+      "host": {
+        "author": [],
+        "title": "J. Heat Transfer"
+      }
+    },
+    {
+      "host": {
+        "author": [],
+        "title": "ASME Proc. 5th Int. Symp. Gas-Solid Fluids"
+      }
+    },
+    {
+      "host": {
+        "pages": {
+          "last": "62",
+          "first": "49"
+        },
+        "author": [],
+        "title": "Introduction to Information Theory"
+      }
+    },
+    {
+      "host": {
+        "volume": "8",
+        "pages": {
+          "last": "70",
+          "first": "62"
+        },
+        "author": [],
+        "title": "IEEE Spectrum"
+      }
+    },
+    {
+      "host": {
+        "author": [],
+        "title": "M.S. Thesis"
+      }
+    },
+    {
+      "host": {
+        "volume": "43",
+        "pages": {
+          "last": "1557",
+          "first": "1547"
+        },
+        "author": [],
+        "title": "Chem. Eng. Sci."
+      }
+    },
+    {
+      "host": {
+        "author": [],
+        "title": "Chaotic and Fractal Dynamics"
+      }
+    }
+  ],
+  "genre": [
+    "research-article"
+  ],
+  "host": {
+    "volume": "84",
+    "pii": [
+      "S0032-5910(00)X0011-3"
+    ],
+    "pages": {
+      "last": "257",
+      "first": "247"
+    },
+    "issn": [
+      "0032-5910"
+    ],
+    "issue": "3",
+    "genre": [
+      "journal"
+    ],
+    "language": [
+      "unknown"
+    ],
+    "title": "Powder Technology",
+    "publicationDate": "1995"
+  },
+  "categories": {
+    "wos": [
+      "science",
+      "engineering, chemical"
+    ],
+    "scienceMetrix": [
+      "applied sciences",
+      "engineering",
+      "chemical engineering"
+    ]
+  },
+  "publicationDate": "1995",
+  "copyrightDate": "1995",
+  "enrichments": {
+    "unitex": [
+      {
+        "original": false,
+        "mimetype": "application/tei+xml",
+        "extension": "tei",
+        "uri": "https://api.istex.fr/document/F697EDBD85006E482CD1AC91DE9D40F6C629727A/enrichments/unitex"
+      }
+    ],
+    "multicat": [
+      {
+        "original": false,
+        "mimetype": "application/tei+xml",
+        "extension": "tei",
+        "uri": "https://api.istex.fr/document/F697EDBD85006E482CD1AC91DE9D40F6C629727A/enrichments/multicat"
+      }
+    ]
+  },
+  "doi": [
+    "10.1016/0032-5910(95)02986-C"
+  ],
+  "id": "F697EDBD85006E482CD1AC91DE9D40F6C629727A",
+  "fulltext": [
+    {
+      "original": true,
+      "mimetype": "application/pdf",
+      "extension": "pdf",
+      "uri": "https://api.istex.fr/document/F697EDBD85006E482CD1AC91DE9D40F6C629727A/fulltext/pdf"
+    },
+    {
+      "original": false,
+      "mimetype": "application/zip",
+      "extension": "zip",
+      "uri": "https://api.istex.fr/document/F697EDBD85006E482CD1AC91DE9D40F6C629727A/fulltext/zip"
+    },
+    {
+      "original": false,
+      "mimetype": "application/tei+xml",
+      "extension": "tei",
+      "uri": "https://api.istex.fr/document/F697EDBD85006E482CD1AC91DE9D40F6C629727A/fulltext/tei"
+    },
+    {
+      "original": false,
+      "mimetype": "text/plain",
+      "extension": "txt",
+      "uri": "https://api.istex.fr/document/F697EDBD85006E482CD1AC91DE9D40F6C629727A/fulltext/txt"
+    }
+  ],
+  "metadata": [
+    {
+      "original": true,
+      "mimetype": "application/xml",
+      "extension": "xml",
+      "uri": "https://api.istex.fr/document/F697EDBD85006E482CD1AC91DE9D40F6C629727A/metadata/xml"
+    },
+    {
+      "original": false,
+      "mimetype": "application/mods+xml",
+      "extension": "mods",
+      "uri": "https://api.istex.fr/document/F697EDBD85006E482CD1AC91DE9D40F6C629727A/metadata/mods"
+    }
+  ]
+}
