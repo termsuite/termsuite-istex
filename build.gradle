@@ -36,7 +36,7 @@ dependencies {
     
     compile 'com.google.inject.extensions:guice-assistedinject:4.0'
     compile 'fr.univ-nantes.termsuite:termsuite-core:3.0-snapshot'
-	compile "commons-cli:commons-cli:1.3"
+	compile "commons-cli:commons-cli:1.2"
 }
 
 

@@ -88,6 +88,17 @@ public class IstexLauncherSpec {
 				);
 	}
 
+	
+	@Test
+	public void testTsvAlone() throws Exception {
+		launch(
+				"-l", "en",
+				"-t", treeTaggerHome,
+				"--doc-id", String.format("%s,%s", id1,id2),
+				"--tsv", tsvPath.toString()
+				);
+	}
+
 	@Test
 	public void testArgDocIdOrDocFileMissing() throws Exception {
 		thrown.expect(TermSuiteCliException.class);
