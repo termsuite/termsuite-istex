@@ -127,7 +127,7 @@ public class IstexLauncherSpec {
 	@Test
 	public void testValidFromDocId() throws Exception {
 		launch(
-				"-t", treeTaggerHome,
+				"--debug", "-t", treeTaggerHome,
 				"-l", "en",
 				"--doc-id", String.format("%s,%s", id1,id2),
 				"--json", jsonPath.toString(),

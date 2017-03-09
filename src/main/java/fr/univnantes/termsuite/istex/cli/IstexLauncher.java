@@ -84,7 +84,7 @@ public class IstexLauncher extends TerminologyExtractorCLI {
 	}
 
 	private IstexCorpus getIstexCorpus() {
-		Lang lang = privateGetLang();
+		Lang lang = getLang();
 		List<String> documentIds = getDocumentIds();
 		IstexCorpus textCorpus = TermSuiteIstex.createIstexCorpus(lang, documentIds);
 		LOGGER.info("Istex corpus - language: " + textCorpus.getLang());
@@ -92,7 +92,8 @@ public class IstexLauncher extends TerminologyExtractorCLI {
 		return textCorpus;
 	}
 
-	private Lang privateGetLang() {
+	@Override
+	public Lang getLang() {
 		if(isSet(TermSuiteCliOption.LANGUAGE))
 			return Lang.forName(asString(TermSuiteCliOption.LANGUAGE));
 		else
