@@ -84,19 +84,31 @@ public class Tests {
 	};
 
 	public static void testTerminoWithoutPostProc(Terminology terminology) {
-		List<Term> terms = Lists.newArrayList(terminology.getTerms().values());
-		Collections.sort(terms, TERM_COMPARATOR);
-		assertThat(terms).isNotEmpty();
+		List<Term> terms = getSortedTerms(terminology);
 		assertEquals("n: web", terms.get(0).getGroupingKey());
+		assertThat(terms).hasSize(233);
 	}
 
+	public static void testTerminoFullText(Terminology terminology) {
+		List<Term> terms = getSortedTerms(terminology);
+		assertEquals("an: smart bookmark", terms.get(0).getGroupingKey());
+		assertThat(terms).hasSize(911);
+	}
+
+
 	public static void testTermino(Terminology terminology) {
+		List<Term> terms = getSortedTerms(terminology);
+
+		assertEquals("n: bookmark", terms.get(0).getGroupingKey());
+		assertEquals("ann: mutual information theory", terms.get(5).getGroupingKey());
+		assertThat(terms).hasSize(61);
+	}
+	
+	private static List<Term> getSortedTerms(Terminology terminology) {
 		List<Term> terms = Lists.newArrayList(terminology.getTerms().values());
 		Collections.sort(terms, TERM_COMPARATOR);
 		assertThat(terms).isNotEmpty();
-		assertEquals("n: bookmark", terms.get(0).getGroupingKey());
-		assertEquals("ann: mutual information theory", terms.get(5).getGroupingKey());
+		return terms;
 	}
-	
 
 }

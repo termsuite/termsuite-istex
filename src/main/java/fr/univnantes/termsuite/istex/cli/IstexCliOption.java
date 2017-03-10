@@ -7,6 +7,7 @@ public enum IstexCliOption implements CliOption {
 	// GATHERER 
 	DOCUMENT_IDS("doc-id", 		null, 	OptType.T_STRING, 	"The \",\"-separated list of ids of ISTEX documents"),
 	ID_FILE("id-file", 		null, 	OptType.T_FILE, 	"A file containing the list of ISTEX document ids of the corpus"),
+	FULLTEXT("fulltext", 		null, 	OptType.T_NONE, 	"Runs on documents' fulltexts instead of abstract only." ),
 	;
 	
 	private String optName;

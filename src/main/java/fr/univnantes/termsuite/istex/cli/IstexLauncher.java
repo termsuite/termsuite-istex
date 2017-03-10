@@ -13,6 +13,7 @@ import fr.univnantes.termsuite.api.Preprocessor;
 import fr.univnantes.termsuite.istex.IstexCorpus;
 import fr.univnantes.termsuite.istex.IstexLauncherException;
 import fr.univnantes.termsuite.istex.IstexPreprocessor;
+import fr.univnantes.termsuite.istex.Mode;
 import fr.univnantes.termsuite.istex.TermSuiteIstex;
 import fr.univnantes.termsuite.model.IndexedCorpus;
 import fr.univnantes.termsuite.model.Lang;
@@ -60,6 +61,7 @@ public class IstexLauncher extends TerminologyExtractorCLI {
 		declareExactlyOneOf(
 				IstexCliOption.ID_FILE, 
 				IstexCliOption.DOCUMENT_IDS);
+		declareFacultative(IstexCliOption.FULLTEXT);
 	}
 	
 	@Override
@@ -83,10 +85,17 @@ public class IstexLauncher extends TerminologyExtractorCLI {
 		return indexedCorpus;
 	}
 
+	private Mode getMode() {
+		if(isSet(IstexCliOption.FULLTEXT))
+			return Mode.FULLTEXT;
+		else
+			return Mode.ABSTRACT;
+	}
+	
 	private IstexCorpus getIstexCorpus() {
 		Lang lang = getLang();
 		List<String> documentIds = getDocumentIds();
-		IstexCorpus textCorpus = TermSuiteIstex.createIstexCorpus(lang, documentIds);
+		IstexCorpus textCorpus = TermSuiteIstex.createIstexCorpus(lang, getMode(), documentIds);
 		LOGGER.info("Istex corpus - language: " + textCorpus.getLang());
 		LOGGER.info("Istex corpus - num docs: " + (textCorpus.getDocumentIds() == null ? 0 : textCorpus.getDocumentIds().size()));
 		return textCorpus;

@@ -30,7 +30,7 @@ public class IstexServiceSpec {
 
 	@Test
 	public void testGetDocumentURL() throws MalformedURLException {
-		assertThat(service.getDocumentURL("toto").toString())
+		assertThat(service.makeDocumentURL("toto").toString())
 		.isEqualTo("https://api.istex.fr/document/toto/");
 	}
 

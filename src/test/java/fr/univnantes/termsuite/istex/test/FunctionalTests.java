@@ -13,6 +13,7 @@ import org.junit.Test;
 import fr.univnantes.termsuite.api.TermSuite;
 import fr.univnantes.termsuite.istex.IstexCorpus;
 import fr.univnantes.termsuite.istex.IstexPreprocessor;
+import fr.univnantes.termsuite.istex.Mode;
 import fr.univnantes.termsuite.istex.TermSuiteIstex;
 import fr.univnantes.termsuite.model.IndexedCorpus;
 import fr.univnantes.termsuite.model.Lang;
@@ -30,7 +31,10 @@ public class FunctionalTests {
 		idFile = Paths.get("src", "test", "resources", "list-335.tt");
 		documentIds = TermSuiteIstex.readDocumentIds(idFile);
 		istexCorpus = TermSuiteIstex.createIstexCorpus(
-				Lang.EN, documentIds);
+				Lang.EN, 
+				Mode.ABSTRACT,
+				documentIds
+				);
 	}
 
 	@Test

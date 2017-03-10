@@ -13,8 +13,6 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
-import com.google.common.base.Joiner;
-
 import fr.univnantes.termsuite.api.IndexedCorpusIO;
 import fr.univnantes.termsuite.index.Terminology;
 import fr.univnantes.termsuite.istex.cli.IstexLauncher;
@@ -56,7 +54,6 @@ public class IstexLauncherSpec {
 	}
 	
 	private void launch(String... args) throws Exception {
-		System.out.println(Joiner.on(" ").join(args));
 		IstexLauncher.main(args);
 	}
 	
@@ -135,9 +132,26 @@ public class IstexLauncherSpec {
 				);
 		
 		Tests.testTermino(jsonPath);
+	}
+
+	
+	@Test
+	public void testFulltextValidFromDocId() throws Exception {
+		launch(
+				"--debug", 
+				"--fulltext", 
+				"-t", treeTaggerHome,
+				"-l", "en",
+				"--doc-id", String.format("%s,%s", id1,id2),
+				"--json", jsonPath.toString(),
+				"--tsv", tsvPath.toString()
+				);
+		
+		Tests.testTerminoFullText(IndexedCorpusIO.fromJson(jsonPath).getTerminology());
 
 	}
 
+	
 	@Test
 	public void testValidFromDocIdWithContexts() throws Exception {
 		launch(

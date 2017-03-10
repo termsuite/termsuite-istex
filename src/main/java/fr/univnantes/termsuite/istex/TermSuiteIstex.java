@@ -13,7 +13,8 @@ import com.google.inject.util.Modules;
 
 import fr.univnantes.termsuite.api.Preprocessor;
 import fr.univnantes.termsuite.framework.modules.TermSuiteModule;
-import fr.univnantes.termsuite.istex.service.CorpusFactory;
+import fr.univnantes.termsuite.istex.service.AbstractCorpusFactory;
+import fr.univnantes.termsuite.istex.service.FulltextCorpusFactory;
 import fr.univnantes.termsuite.istex.service.IstexModule;
 import fr.univnantes.termsuite.model.Lang;
 
@@ -37,13 +38,18 @@ public class TermSuiteIstex {
 	}
 
 	
-	public static IstexCorpus createIstexCorpus(Lang lang, List<String> documentIds) {
+	public static IstexCorpus createIstexCorpus(Lang lang, Mode mode, List<String> documentIds) {
 		Injector injector = istexInjector();
-		CorpusFactory factory = injector.getInstance(CorpusFactory.class);
-		IstexCorpus textCorpus = factory.create(
+		if(mode == Mode.ABSTRACT)
+			return injector.getInstance(AbstractCorpusFactory.class).createCorpus(
 				lang, 
 				documentIds);
-		return textCorpus;
+		else if(mode == Mode.FULLTEXT)
+			return injector.getInstance(FulltextCorpusFactory.class).createCorpus(
+				lang, 
+				documentIds);
+		else
+			throw new IllegalArgumentException("Unknown istex corpus mode: " + mode);
 	}
 
 	public static Injector istexInjector() {

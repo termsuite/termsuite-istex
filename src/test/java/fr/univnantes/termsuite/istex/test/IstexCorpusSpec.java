@@ -12,8 +12,8 @@ import org.junit.Test;
 import com.google.common.collect.Lists;
 import com.google.inject.Guice;
 
-import fr.univnantes.termsuite.istex.IstexCorpus;
-import fr.univnantes.termsuite.istex.service.CorpusFactory;
+import fr.univnantes.termsuite.istex.AbstractIstexCorpus;
+import fr.univnantes.termsuite.istex.service.AbstractCorpusFactory;
 import fr.univnantes.termsuite.istex.service.IstexModule;
 import fr.univnantes.termsuite.model.Document;
 import fr.univnantes.termsuite.model.Lang;
@@ -23,13 +23,13 @@ public class IstexCorpusSpec {
 	private String id1 = Tests.DOC_ID1;
 	private String id2 = Tests.DOC_ID2;
 	private List<String> ids = Lists.newArrayList(id1, id2);
-	CorpusFactory factory;
-	IstexCorpus corpus;
+	AbstractCorpusFactory factory;
+	AbstractIstexCorpus corpus;
 	
 	@Before
 	public void setup() {
-		factory = Guice.createInjector(new IstexModule()).getInstance(CorpusFactory.class);
-		corpus = factory.create(Lang.EN, ids);
+		factory = Guice.createInjector(new IstexModule()).getInstance(AbstractCorpusFactory.class);
+		corpus = factory.createCorpus(Lang.EN, ids);
 	}
 
 	@Test

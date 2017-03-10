@@ -56,7 +56,7 @@ public class ParallelIstexDocumentProvider {
 		urlQueue = new LinkedBlockingDeque<>();
 		
 		for (String documentId:documentIds) 
-			urlQueue.add(istexService.getDocumentURL(documentId));
+			urlQueue.add(istexService.makeDocumentURL(documentId));
 
 		new Thread() {
 			@Override

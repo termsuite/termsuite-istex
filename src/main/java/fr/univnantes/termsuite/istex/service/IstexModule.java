@@ -33,6 +33,8 @@ public class IstexModule extends AbstractModule {
 		install(new FactoryModuleBuilder()
 			     .build(GetTaskFactory.class));
 		install(new FactoryModuleBuilder()
-			     .build(CorpusFactory.class));
+			     .build(AbstractCorpusFactory.class));
+		install(new FactoryModuleBuilder()
+			     .build(FulltextCorpusFactory.class));
 	}
 }

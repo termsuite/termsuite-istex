@@ -10,8 +10,6 @@ import java.util.stream.Stream;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
-import com.google.inject.Inject;
-import com.google.inject.assistedinject.Assisted;
 
 import fr.univnantes.termsuite.api.TermSuiteException;
 import fr.univnantes.termsuite.api.TextualCorpus;
@@ -20,54 +18,45 @@ import fr.univnantes.termsuite.istex.service.IstexService;
 import fr.univnantes.termsuite.model.Document;
 import fr.univnantes.termsuite.model.Lang;
 
-public class IstexCorpus implements TextualCorpus {
+public abstract class IstexCorpus implements TextualCorpus {
 
+	Lang lang;
 	
-	private Lang lang;
-	private List<String> documentIds;
-	private IstexService istexService;
-	
-	
-	private LoadingCache<String, Document> docCache = CacheBuilder.newBuilder()
-	       .maximumSize(16)
-	       .expireAfterWrite(1, TimeUnit.MINUTES)
-	       .build(
-	           new CacheLoader<String, Document>()  {
-	             public Document load(String documentURL) throws IOException {
-	            	IstexDocument doc;
-					try {
-						doc = istexCache.get(new URL(documentURL));
-					} catch (ExecutionException e) {
-						throw new IOException(e);
-					}
-	 				return new Document(doc.getLang(), documentURL);
+	List<String> documentIds;
 
-	             }
-             }
-           );
-
-	private LoadingCache<URL, IstexDocument> istexCache = CacheBuilder.newBuilder()
+	IstexService istexService;
+	
+	LoadingCache<String, Document> docCache = CacheBuilder.newBuilder()
 		       .maximumSize(16)
 		       .expireAfterWrite(1, TimeUnit.MINUTES)
 		       .build(
-		           new CacheLoader<URL, IstexDocument>()  {
-		             public IstexDocument load(URL documentURL) throws IOException {
-		            	 return istexService.getDocument(documentURL);
+		           new CacheLoader<String, Document>()  {
+		             public Document load(String documentURL) throws IOException {
+		            	IstexDocument doc;
+						try {
+							doc = istexCache.get(new URL(documentURL));
+						} catch (ExecutionException e) {
+							throw new IOException(e);
+						}
+		 				return new Document(doc.getLang(), documentURL);
+
 		             }
 	             }
 	           );
 
-	
-	@Inject
-	public IstexCorpus(
-			IstexService istexService,
-			@Assisted Lang lang,
-			@Assisted List<String> documentIds
-			) {
+	LoadingCache<URL, IstexDocument> istexCache = CacheBuilder.newBuilder()
+			       .maximumSize(16)
+			       .expireAfterWrite(1, TimeUnit.MINUTES)
+			       .build(
+			           new CacheLoader<URL, IstexDocument>()  {
+				             public IstexDocument load(URL documentURL) throws IOException {
+				            	 return istexService.getDocument(documentURL);
+				             }
+			           }
+		           );
+		
+	public IstexCorpus() {
 		super();
-		this.lang = lang;
-		this.documentIds = documentIds;
-		this.istexService = istexService;
 	}
 
 	@Override
@@ -76,7 +65,7 @@ public class IstexCorpus implements TextualCorpus {
 		
 		return stream
 			.map(id -> 
-				istexService.getDocumentURL(id)
+				istexService.makeDocumentURL(id)
 			)
 			.map(url -> {
 				try {
@@ -94,18 +83,8 @@ public class IstexCorpus implements TextualCorpus {
 		return lang;
 	}
 
-	@Override
-	public String readDocumentText(Document doc) {
-		IstexDocument istexDocument;
-		try {
-			istexDocument = istexCache.get(new URL(doc.getUrl()));
-			return String.format("%s. %s.", istexDocument.getTitle(), istexDocument.getAbstract());
-		} catch (Exception e) {
-			throw new TermSuiteException(e);
-		}
-	}
-
 	public List<String> getDocumentIds() {
 		return documentIds;
 	}
+
 }
