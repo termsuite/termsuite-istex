@@ -4,8 +4,6 @@ import java.net.URL;
 import java.util.List;
 import java.util.Optional;
 
-import javax.inject.Named;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,11 +20,19 @@ public class FulltextIstexCorpus extends IstexCorpus {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(FulltextIstexCorpus.class);
 	
-	@Inject(optional = true)
-	@Named("failOnMissingFulltext")
 	private boolean failOnMissingFulltext = true;
 
 	@Inject
+	public FulltextIstexCorpus(
+			IstexService istexService,
+			@Assisted Lang lang,
+			@Assisted List<String> documentIds,
+			@Assisted boolean failOnMissingFulltext
+			) {
+		this(istexService, lang, documentIds);
+		this.failOnMissingFulltext = failOnMissingFulltext;
+	}
+	
 	public FulltextIstexCorpus(
 			IstexService istexService,
 			@Assisted Lang lang,
@@ -37,6 +43,7 @@ public class FulltextIstexCorpus extends IstexCorpus {
 		this.documentIds = documentIds;
 		this.istexService = istexService;
 	}
+
 
 	@Override
 	public String readDocumentText(Document doc) {

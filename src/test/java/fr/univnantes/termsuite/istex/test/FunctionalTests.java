@@ -30,15 +30,30 @@ public class FunctionalTests {
 		treeTaggerHome = Tests.getConfigProperty("treetagger.home.path").toString();
 		idFile = Paths.get("src", "test", "resources", "list-335.tt");
 		documentIds = TermSuiteIstex.readDocumentIds(idFile);
+	}
+
+	@Test
+	public void testAbstract()  {
 		istexCorpus = TermSuiteIstex.createIstexCorpus(
 				Lang.EN, 
 				Mode.ABSTRACT,
 				documentIds
 				);
+		IndexedCorpus corpus = new IstexPreprocessor(TermSuite.preprocessor()
+				.setTaggerPath(Paths.get(treeTaggerHome)))
+				.toIndexedCorpus(istexCorpus)
+		;
+		
+		assertThat(corpus.getTerminology().getTerms()).isNotEmpty();
 	}
-
 	@Test
-	public void testParallelProcessing()  {
+	public void testFulltext()  {
+		istexCorpus = TermSuiteIstex.createIstexCorpus(
+				Lang.EN, 
+				Mode.FULLTEXT,
+				documentIds
+				);
+
 		IndexedCorpus corpus = new IstexPreprocessor(TermSuite.preprocessor()
 				.setTaggerPath(Paths.get(treeTaggerHome)))
 				.toIndexedCorpus(istexCorpus)

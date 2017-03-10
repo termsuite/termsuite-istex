@@ -61,7 +61,14 @@ public class IstexLauncher extends TerminologyExtractorCLI {
 		declareExactlyOneOf(
 				IstexCliOption.ID_FILE, 
 				IstexCliOption.DOCUMENT_IDS);
+		
 		declareFacultative(IstexCliOption.FULLTEXT);
+
+		declareConditional(
+				IstexCliOption.FULLTEXT,
+				IstexCliOption.FAIL_ON_MISSING
+			);
+		
 	}
 	
 	@Override
@@ -95,7 +102,22 @@ public class IstexLauncher extends TerminologyExtractorCLI {
 	private IstexCorpus getIstexCorpus() {
 		Lang lang = getLang();
 		List<String> documentIds = getDocumentIds();
-		IstexCorpus textCorpus = TermSuiteIstex.createIstexCorpus(lang, getMode(), documentIds);
+		IstexCorpus textCorpus;
+		switch (getMode()) {
+		case ABSTRACT:
+			textCorpus = TermSuiteIstex.createAbstractIstexCorpus(
+					lang, 
+					documentIds);
+			break;
+		case FULLTEXT:
+			textCorpus = TermSuiteIstex.createFulltextIstexCorpus(
+					lang, 
+					documentIds,
+					isSet(IstexCliOption.FAIL_ON_MISSING));
+			break;
+		default:
+			throw new IllegalStateException();
+		}
 		LOGGER.info("Istex corpus - language: " + textCorpus.getLang());
 		LOGGER.info("Istex corpus - num docs: " + (textCorpus.getDocumentIds() == null ? 0 : textCorpus.getDocumentIds().size()));
 		return textCorpus;
