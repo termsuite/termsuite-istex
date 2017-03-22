@@ -27,11 +27,7 @@ Exactly one option in `--doc-id` or `id-file` must be passed.
 At least one option in `--tsv`, `--json`, `--tbx` must be passed.
 
  - `--json FILE`: Outputs terminology to JSON file
-<<<<<<< HEAD
  - `--tbx FILE`: Outputs terminology to TBX file
-=======
- - `--tbx FILE`: Outputs terminology to XMI file
->>>>>>> branch 'master' of git@github.com:termsuite/termsuite-istex.git
  - `--tsv FILE`: Outputs terminology to TSV file
 
 #### Other options
