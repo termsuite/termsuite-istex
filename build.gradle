@@ -7,12 +7,22 @@
  * user guide available at https://docs.gradle.org/2.14.1/userguide/tutorial_java_projects.html
  */
 
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "net.saliman:gradle-properties-plugin:1.4.5"
+    }
+}
+
+
 // Apply the java plugin to add support for Java
 apply plugin: 'java'
+apply plugin: 'maven'
 apply plugin: 'maven-publish'
-
-version="1.1.0"
-group="fr.univ-nantes.termsuite"
+apply plugin: 'signing'
+apply plugin: 'net.saliman.properties'
 
 // In this section you declare where to find the dependencies of your project
 repositories {
@@ -68,4 +78,93 @@ jar {
             "Built-JDK": System.getProperty('java.version'),
 			"Main-Class": "fr.univnantes.termsuite.istex.IstexLauncher")
     }
+}
+
+task javadocJar(type: Jar) {
+	classifier = 'javadoc'
+	from javadoc
+}
+
+task sourcesJar(type: Jar) {
+	classifier = 'sources'
+	from sourceSets.main.allSource
+}
+
+
+artifacts {
+	archives javadocJar, sourcesJar
+}
+
+if(hasProperty("signing.keyId") 
+	&& hasProperty("signing.secretKeyRingFile")
+	&& new File(project.getProperty("signing.secretKeyRingFile")).exists()
+	) {
+	// activate signing of artifacts, only if signing is configured properly
+	signing {
+		sign configurations.archives
+	}
+}
+
+publishing {
+	publications {
+		maven(MavenPublication) {
+			groupId project.getProperty("group")
+			artifactId project.getProperty("name")
+			version project.getProperty("version")
+			from components.java
+			
+			artifact sourcesJar {
+                classifier "sources"
+            }
+		}
+	}
+}
+
+if(hasProperty("ossrh.username")) {
+  uploadArchives {
+  	repositories {
+  	  mavenDeployer {
+    		beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+      		repository(url: project.getProperty("oss.repository.release")) {
+      		  authentication(userName: project.getProperty("ossrh.username"), password: project.getProperty("ossrh.password"))
+      		}
+      		snapshotRepository(url: project.getProperty("oss.repository.snapshot")) {
+      		  authentication(userName: project.getProperty("ossrh.username"), password: project.getProperty("ossrh.password"))
+      		}
+
+      		pom.project {
+      		  name project.getProperty("name")
+      		  packaging 'jar'
+      		  // optionally artifactId can be defined here
+      		  description project.getProperty("description")
+      		  url project.getProperty("url")
+
+      		  scm {
+      			  connection "scm:git:" + project.getProperty("termsuite.git.url")
+      			  developerConnection "scm:git:" + project.getProperty("termsuite.git.url")
+      			  url project.getProperty("termsuite.git.url")
+      		  }
+
+      		  licenses {
+      			  license {
+      				  name project.getProperty("license")
+      				  url project.getProperty("licenseUrl")
+      			  }
+      		  }
+
+      		  developers {
+      			  developer {
+      				  id project.getProperty("developer.id")
+      				  name project.getProperty("developer.name")
+      				  email project.getProperty("developer.email")
+      			  }
+      		  }
+      		}
+	     }
+  	}
+  }
+} else {
+  def msg = "Publishing to maven central (task uploadArchives) is not possible since no gradle property file is found (use \"\$ cp gradle.properties.sample gradle.properties\" and edit gradle.properties)"
+  logger.warn(msg)
 }
