@@ -10,11 +10,8 @@ import org.assertj.core.util.Lists;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.google.inject.Guice;
-
 import fr.univnantes.termsuite.istex.json.RawType;
 import fr.univnantes.termsuite.istex.model.IstexDocument;
-import fr.univnantes.termsuite.istex.service.IstexModule;
 import fr.univnantes.termsuite.istex.service.IstexService;
 import fr.univnantes.termsuite.model.Lang;
 
@@ -25,13 +22,13 @@ public class IstexServiceSpec {
 	
 	@Before
 	public void setup() {
-		service = Guice.createInjector(new IstexModule()).getInstance(IstexService.class);
+		service = FunctionalTests.createIstexTestModule().getInstance(IstexService.class);
 	}
 
 	@Test
 	public void testGetDocumentURL() throws MalformedURLException {
 		assertThat(service.makeDocumentURL("toto").toString())
-		.isEqualTo("https://api.istex.fr/document/toto/");
+		.isEqualTo("https://api.istex.fr/document/toto/?sid=termsuite-test");
 	}
 
 	@Test

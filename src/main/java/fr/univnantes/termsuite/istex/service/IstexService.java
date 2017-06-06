@@ -2,9 +2,11 @@ package fr.univnantes.termsuite.istex.service;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Scanner;
@@ -29,14 +31,16 @@ public class IstexService {
 	@Inject @Named("istex.api")
 	private URI api;
 
+	@Inject @Named("istex.termsuite.sid")
+	private String sid;
 	
 	public URL makeDocumentURL(String documentId) {
 		String documentPath = String.format("/document/%s/", documentId);
 		URL documentURL;
 		try {
-			documentURL = new URL(api.toURL(), documentPath);
+			documentURL = new URL(api.toURL(), documentPath + "?sid=" + URLEncoder.encode(sid, "UTF-8"));
 			return documentURL;
-		} catch (MalformedURLException e) {
+		} catch (MalformedURLException | UnsupportedEncodingException e) {
 			throw new IstexDriverException(e);
 		}
 	}

@@ -10,11 +10,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.google.common.collect.Lists;
-import com.google.inject.Guice;
 
 import fr.univnantes.termsuite.istex.AbstractIstexCorpus;
 import fr.univnantes.termsuite.istex.service.AbstractCorpusFactory;
-import fr.univnantes.termsuite.istex.service.IstexModule;
 import fr.univnantes.termsuite.model.Document;
 import fr.univnantes.termsuite.model.Lang;
 
@@ -28,9 +26,10 @@ public class IstexCorpusSpec {
 	
 	@Before
 	public void setup() {
-		factory = Guice.createInjector(new IstexModule()).getInstance(AbstractCorpusFactory.class);
+		factory = FunctionalTests.createIstexTestModule().getInstance(AbstractCorpusFactory.class);
 		corpus = factory.createCorpus(Lang.EN, ids);
 	}
+
 
 	@Test
 	public void testDocuments() throws MalformedURLException {

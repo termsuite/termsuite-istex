@@ -10,11 +10,15 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+
 import fr.univnantes.termsuite.api.TermSuite;
 import fr.univnantes.termsuite.istex.IstexCorpus;
 import fr.univnantes.termsuite.istex.IstexPreprocessor;
 import fr.univnantes.termsuite.istex.Mode;
 import fr.univnantes.termsuite.istex.TermSuiteIstex;
+import fr.univnantes.termsuite.istex.service.IstexModule;
 import fr.univnantes.termsuite.model.IndexedCorpus;
 import fr.univnantes.termsuite.model.Lang;
 
@@ -30,6 +34,10 @@ public class FunctionalTests {
 		treeTaggerHome = Tests.getConfigProperty("treetagger.home.path").toString();
 		idFile = Paths.get("src", "test", "resources", "list-335.tt");
 		documentIds = TermSuiteIstex.readDocumentIds(idFile);
+	}
+
+	public static Injector createIstexTestModule() {
+		return Guice.createInjector(new IstexModule("termsuite-test"));
 	}
 
 	@Test

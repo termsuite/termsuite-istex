@@ -13,21 +13,27 @@ import fr.univnantes.termsuite.istex.IstexDriverException;
 public class IstexModule extends AbstractModule {
 	
 	private URI api;
+	private String sid;
 	
-	public IstexModule() {
+	public IstexModule(String sid) {
 		super();
 		try {
 			this.api = new URI("https://api.istex.fr/");
+			this.sid = sid;
 		} catch (URISyntaxException e) {
 			throw new IstexDriverException(e);
 		}
 	}
-
+	
+	public IstexModule() {
+		this("termsuite");
+	}
 
 	@Override
 	protected void configure() {
 		
 		bind(URI.class).annotatedWith(Names.named("istex.api")).toInstance(api);
+		bind(String.class).annotatedWith(Names.named("istex.termsuite.sid")).toInstance(sid);
 		bind(IstexService.class).in(Singleton.class);
 		
 		install(new FactoryModuleBuilder()
