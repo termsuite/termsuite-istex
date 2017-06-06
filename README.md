@@ -2,11 +2,11 @@ A TermSuite launcher on [ISTEX](http://www.istex.fr/) documents.
 
 # Command Line
 
- 1. Download last termsuite-istex's [jar](https://search.maven.org/remotecontent?filepath=fr/univ-nantes/termsuite/termsuite-istex/1.1.0/termsuite-istex-1.1.0.jar),
+ 1. Download last termsuite-istex's [jar](https://search.maven.org/remotecontent?filepath=fr/univ-nantes/termsuite/termsuite-istex/1.1.2/termsuite-istex-1.1.2.jar),
  2. Run istex launcher:
 
 ```
-$ java -cp termsuite-istex-1.1.0.jar \
+$ java -cp termsuite-istex-1.1.2.jar \
       fr.univnantes.termsuite.istex.cli.IstexLauncher \
       -t /path/to/tagger \
       -l en \

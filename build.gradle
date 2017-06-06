@@ -43,9 +43,9 @@ dependencies {
     // 'test.useTestNG()' to your build script.
     testCompile 'junit:junit:4.12'
 	testCompile "org.assertj:assertj-core:2.0.0"
-    
+
     compile 'com.google.inject.extensions:guice-assistedinject:4.0'
-    compile 'fr.univ-nantes.termsuite:termsuite-core:3.0.1'
+    compile 'fr.univ-nantes.termsuite:termsuite-core:3.0.4'
 	compile "commons-cli:commons-cli:1.2"
 }
 
@@ -56,20 +56,20 @@ jar {
 	from( configurations.runtime.collect { it.isDirectory() ? it : zipTree(it) } ) {
 		 exclude "META-INF/*"
     }
-    
+
 	exclude "**/lv/**"
 	exclude "**/zh/**"
  	exclude "**/da/**"
 
-    
+
 	    // cannot exclude META-INF for groovy to run
 	from( configurations.runtime.findAll{it.getAbsolutePath().contains("org.codehaus.groovy")}.collect { it.isDirectory() ? it : zipTree(it) } ) {
 		include "META-INF/*"
 	}
 
-	
+
 	// tune manifest
-    manifest { 
+    manifest {
         attributes(
 			"Implementation-Title": project.name,
 			"Implementation-Version": project.getProperty("version"),
@@ -95,7 +95,7 @@ artifacts {
 	archives javadocJar, sourcesJar
 }
 
-if(hasProperty("signing.keyId") 
+if(hasProperty("signing.keyId")
 	&& hasProperty("signing.secretKeyRingFile")
 	&& new File(project.getProperty("signing.secretKeyRingFile")).exists()
 	) {
@@ -112,7 +112,7 @@ publishing {
 			artifactId project.getProperty("name")
 			version project.getProperty("version")
 			from components.java
-			
+
 			artifact sourcesJar {
                 classifier "sources"
             }
