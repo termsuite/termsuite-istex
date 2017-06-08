@@ -19,13 +19,25 @@ import fr.univnantes.termsuite.istex.service.IstexModule;
 import fr.univnantes.termsuite.model.Lang;
 
 public class TermSuiteIstex {
+	
+	/**
+	 * The system identifier for ISTEX API. Allows ISTEX to identify the application
+	 * as coming for TermSuite.
+	 */
+	public static final String DEFAULT_TERMSUITE_SID="termsuite";
+	
+	
 	public static Preprocessor preprocessor() {
-		return termSuiteInjector().getInstance(Preprocessor.class);
+		return termSuiteInjector(DEFAULT_TERMSUITE_SID).getInstance(Preprocessor.class);
 	}
 	
-	private static Injector termSuiteInjector() {
+	public static Preprocessor preprocessor(String sid) {
+		return termSuiteInjector(sid).getInstance(Preprocessor.class);
+	}
+
+	private static Injector termSuiteInjector(String sid) {
 		return Guice.createInjector(Modules.override(new TermSuiteModule())
-				.with(new IstexModule()));
+				.with(new IstexModule(sid)));
 	}
 	
 	public static List<String> readDocumentIds(Path isFile) throws IOException {
@@ -37,15 +49,15 @@ public class TermSuiteIstex {
 				.collect(toList());
 	}
 
-	public static IstexCorpus createAbstractIstexCorpus(Lang lang, List<String> documentIds) {
-		Injector injector = istexInjector();
+	public static IstexCorpus createAbstractIstexCorpus(String sid, Lang lang, List<String> documentIds) {
+		Injector injector = istexInjector(sid);
 		return injector.getInstance(AbstractCorpusFactory.class).createCorpus(
 				lang, 
 				documentIds);
 	}
 
-	public static IstexCorpus createFulltextIstexCorpus(Lang lang, List<String> documentIds, boolean failOnMissingFulltext) {
-		Injector injector = istexInjector();
+	public static IstexCorpus createFulltextIstexCorpus(String sid, Lang lang, List<String> documentIds, boolean failOnMissingFulltext) {
+		Injector injector = istexInjector(sid);
 		return injector.getInstance(FulltextCorpusFactory.class).createCorpus(
 				lang, 
 				documentIds,
@@ -59,22 +71,22 @@ public class TermSuiteIstex {
 	 * @param documentIds
 	 * @return 
 	 * 			the created istex corpus
+	 * 
 	 */
-	public static IstexCorpus createFulltextIstexCorpus(Lang lang, List<String> documentIds) {
-		return createFulltextIstexCorpus(lang, documentIds, true);
+	public static IstexCorpus createFulltextIstexCorpus(String sid, Lang lang, List<String> documentIds) {
+		return createFulltextIstexCorpus(sid, lang, documentIds, true);
 	}
 
-	public static IstexCorpus createIstexCorpus(Lang lang, Mode mode, List<String> documentIds) {
+	public static IstexCorpus createIstexCorpus(String sid, Lang lang, Mode mode, List<String> documentIds) {
 		if(mode == Mode.ABSTRACT)
-			return createAbstractIstexCorpus(lang, documentIds);
+			return createAbstractIstexCorpus(sid, lang, documentIds);
 		else if(mode == Mode.FULLTEXT)
-			return createFulltextIstexCorpus(lang, documentIds);
+			return createFulltextIstexCorpus(sid, lang, documentIds);
 		else
 			throw new IllegalArgumentException("Unknown istex corpus mode: " + mode);
 	}
 
-	public static Injector istexInjector() {
-		return Guice.createInjector(new IstexModule());
+	public static Injector istexInjector(String sid) {
+		return Guice.createInjector(new IstexModule(sid));
 	}
-
 }

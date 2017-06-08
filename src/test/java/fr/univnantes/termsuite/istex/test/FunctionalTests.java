@@ -24,6 +24,7 @@ import fr.univnantes.termsuite.model.Lang;
 
 public class FunctionalTests {
 
+	public static final String TEST_SID = "termsuite-test";
 	private String treeTaggerHome;
 	private Path idFile;
 	private List<String> documentIds;
@@ -37,12 +38,13 @@ public class FunctionalTests {
 	}
 
 	public static Injector createIstexTestModule() {
-		return Guice.createInjector(new IstexModule("termsuite-test"));
+		return Guice.createInjector(new IstexModule(TEST_SID));
 	}
 
 	@Test
 	public void testAbstract()  {
 		istexCorpus = TermSuiteIstex.createIstexCorpus(
+				FunctionalTests.TEST_SID,
 				Lang.EN, 
 				Mode.ABSTRACT,
 				documentIds
@@ -54,9 +56,11 @@ public class FunctionalTests {
 		
 		assertThat(corpus.getTerminology().getTerms()).isNotEmpty();
 	}
+	
 	@Test
 	public void testFulltext()  {
 		istexCorpus = TermSuiteIstex.createIstexCorpus(
+				FunctionalTests.TEST_SID,
 				Lang.EN, 
 				Mode.FULLTEXT,
 				documentIds

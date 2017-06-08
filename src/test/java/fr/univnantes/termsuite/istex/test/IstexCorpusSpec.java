@@ -37,14 +37,14 @@ public class IstexCorpusSpec {
 		assertThat(collect)
 			.hasSize(2)
 			.extracting("url")
-			.contains("https://api.istex.fr/document/F697EDBD85006E482CD1AC91DE9D40F6C629727A/")
-			.contains("https://api.istex.fr/document/15101397F055B3A872D495F7405D0A3F3E195E0F/")
+			.contains("https://api.istex.fr/document/F697EDBD85006E482CD1AC91DE9D40F6C629727A/?sid=termsuite-test")
+			.contains("https://api.istex.fr/document/15101397F055B3A872D495F7405D0A3F3E195E0F/?sid=termsuite-test")
 			;
 	}
 	
 	@Test
 	public void testReadDocumentText() throws MalformedURLException {
-		Document doc = new Document(Lang.EN, "https://api.istex.fr/document/F697EDBD85006E482CD1AC91DE9D40F6C629727A/");
+		Document doc = new Document(Lang.EN, "https://api.istex.fr/document/F697EDBD85006E482CD1AC91DE9D40F6C629727A/?sid=termsuite-test");
 		
 		
 		assertThat(corpus.readDocumentText(doc))

@@ -27,8 +27,11 @@ public class IstexLauncher extends TerminologyExtractorCLI {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(IstexLauncher.class);
 	
-	public IstexLauncher() {
+	private String sid;
+	
+	public IstexLauncher(String sid) {
 		super("Extracts terminology from a collection of ISTEX documents");
+		this.sid = sid;
 	}
 
 	@Override
@@ -86,7 +89,7 @@ public class IstexLauncher extends TerminologyExtractorCLI {
 		
 		IstexPreprocessor istexPreprocessor = new IstexPreprocessor(preprocessor);
 		
-		IstexCorpus textCorpus = getIstexCorpus();
+		IstexCorpus textCorpus = getIstexCorpus(sid);
 		
 		IndexedCorpus indexedCorpus = istexPreprocessor.toIndexedCorpus(textCorpus);
 		return indexedCorpus;
@@ -99,18 +102,20 @@ public class IstexLauncher extends TerminologyExtractorCLI {
 			return Mode.ABSTRACT;
 	}
 	
-	private IstexCorpus getIstexCorpus() {
+	private IstexCorpus getIstexCorpus(String sid) {
 		Lang lang = getLang();
 		List<String> documentIds = getDocumentIds();
 		IstexCorpus textCorpus;
 		switch (getMode()) {
 		case ABSTRACT:
 			textCorpus = TermSuiteIstex.createAbstractIstexCorpus(
+					sid,
 					lang, 
 					documentIds);
 			break;
 		case FULLTEXT:
 			textCorpus = TermSuiteIstex.createFulltextIstexCorpus(
+					sid,
 					lang, 
 					documentIds,
 					isSet(IstexCliOption.FAIL_ON_MISSING));
@@ -149,6 +154,6 @@ public class IstexLauncher extends TerminologyExtractorCLI {
 
 
 	public static void main(String[] args) {
-		new IstexLauncher().launch(args);
+		new IstexLauncher(TermSuiteIstex.DEFAULT_TERMSUITE_SID).launch(args);
 	}
 }

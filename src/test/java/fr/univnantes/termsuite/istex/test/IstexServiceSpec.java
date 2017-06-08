@@ -17,7 +17,6 @@ import fr.univnantes.termsuite.model.Lang;
 
 public class IstexServiceSpec {
 
-	
 	IstexService service;
 	
 	@Before

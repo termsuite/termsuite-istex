@@ -25,10 +25,6 @@ public class IstexModule extends AbstractModule {
 		}
 	}
 	
-	public IstexModule() {
-		this("termsuite");
-	}
-
 	@Override
 	protected void configure() {
 		

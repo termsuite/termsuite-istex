@@ -54,7 +54,7 @@ public class IstexLauncherSpec {
 	}
 	
 	private void launch(String... args) throws Exception {
-		IstexLauncher.main(args);
+		new IstexLauncher(FunctionalTests.TEST_SID).launch(args);
 	}
 	
 	@Test
@@ -210,7 +210,7 @@ public class IstexLauncherSpec {
 				"--id-file", new File("src/test/resources/id-file").getAbsolutePath(),
 				"--json", jsonPath.toString(),
 				"--tsv", tsvPath.toString(),
-				"--tsv-properties", "gkey,f,sp"
+				"--tsv-properties", "key,freq,spec"
 				);
 		
 		assertThat(jsonPath).exists();
