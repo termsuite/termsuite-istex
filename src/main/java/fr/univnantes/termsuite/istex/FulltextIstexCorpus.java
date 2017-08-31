@@ -64,4 +64,14 @@ public class FulltextIstexCorpus extends IstexCorpus {
 			throw new TermSuiteException(e);
 		}
 	}
+
+	@Override
+	public int getNbDocuments() {
+		return -1;
+	}
+
+	@Override
+	public long getTotalSize() {
+		return -1;
+	}
 }

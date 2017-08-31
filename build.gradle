@@ -45,7 +45,7 @@ dependencies {
 	testCompile "org.assertj:assertj-core:2.0.0"
 
     compile 'com.google.inject.extensions:guice-assistedinject:4.0'
-    compile 'fr.univ-nantes.termsuite:termsuite-core:3.0.4'
+    compile 'fr.univ-nantes.termsuite:termsuite-core:3.0.10'
 	compile "commons-cli:commons-cli:1.2"
 }
 
